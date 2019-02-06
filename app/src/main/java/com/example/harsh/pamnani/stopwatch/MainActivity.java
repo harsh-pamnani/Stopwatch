@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private Handler timerHandler;
     private ArrayAdapter<String> itemsAdapter;
     private TextView txtTimer;
@@ -29,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -45,14 +42,10 @@ public class MainActivity extends AppCompatActivity {
 
         lvLaps.setAdapter(itemsAdapter);
 
-
         btnStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(!stopWatchStarted || stopWatchPaused)
-
-                {
+                if(!stopWatchStarted || stopWatchPaused) {
                     stopWatchStarted = true;
                     stopWatchPaused = false;
 
@@ -62,27 +55,13 @@ public class MainActivity extends AppCompatActivity {
 
                     btnStartPause.setText(R.string.lblPause);
                     btnLapReset.setText(R.string.btnlap);
-
-
-
-
-                }
-
-                else
-
-                {
-
+                } else {
                     pausedTime +=millisecondTime;
                     stopWatchPaused = true;
                     timerHandler.removeCallbacks(timerRunnable);
                     btnStartPause.setText(R.string.lblStart);
                     btnLapReset.setText(R.string.lblReset);
-
-
-
-                }
-
-
+                 }
             }
         });
 
@@ -90,19 +69,12 @@ public class MainActivity extends AppCompatActivity {
         btnLapReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(stopWatchStarted && !stopWatchPaused)
-                {
+                if(stopWatchStarted && !stopWatchPaused) {
                     String lapTime = minutes + ":"
                             + String.format("%02d", seconds) + ":"
                             + String.format("%03d", milliSeconds);
                     itemsAdapter.add(lapTime);
-
-
-                }
-
-                else if(stopWatchStarted)
-                {
+                } else if(stopWatchStarted) {
                     stopWatchStarted =false;
                     stopWatchPaused = false;
 
@@ -120,24 +92,17 @@ public class MainActivity extends AppCompatActivity {
                     btnLapReset.setText(R.string.btnlap);
 
                     itemsAdapter.clear();
-
-
-                }
-
-                else
-                {
+                } else {
                     Toast.makeText(getApplicationContext(),"Timer hasn't started yet!",Toast.LENGTH_SHORT).show();
 
                 }
             }
         });
-
     }
 
     public Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-
             millisecondTime = SystemClock.uptimeMillis()-startTime;
             updateTime = pausedTime + millisecondTime;
             milliSeconds =(int)(updateTime % 1000);
@@ -151,8 +116,6 @@ public class MainActivity extends AppCompatActivity {
             txtTimer.setText(updatedTime);
 
             timerHandler.postDelayed(this,0);
-
-
         }
     };
 
