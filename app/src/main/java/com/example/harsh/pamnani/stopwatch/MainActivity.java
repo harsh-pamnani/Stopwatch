@@ -118,5 +118,4 @@ public class MainActivity extends AppCompatActivity {
             timerHandler.postDelayed(this,0);
         }
     };
-
 }
